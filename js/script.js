@@ -1,13 +1,14 @@
 
 $(document).ready(function() {
 	
-	$('body').on('touchmove', false);
+	$('#bingo2016').hide();
+	$('body').on('touchmove', true);
 	
-	$('#header').append(headerText);
+	$('#header').append(headerText2016);
 	
 	$('#footer').append(footerText);
 
-	shuffle(JSONBingo.squares);
+	shuffle(JSONBingo2016.squares);
 	
 	for (i=0; i<25; i++)	{
 	
@@ -15,12 +16,48 @@ $(document).ready(function() {
 		// 	$('#board').append("<div data-value='1' class='selected freesquare' id='sqfree'><div class='text'><br/>free space</div></div>");
 		// 	$('#board').append("<div data-value='0' class='square' id='sq12'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
 		// } else {
-			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
-		// }
+			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2016.squares[i].square+"</div></div>");
+		
   }
 
-	$('div.square').tap(function () {
-      $(this).toggleClass('selected');
+  wireEvents();
+
+
+  $('#bingo2017').tap( function() {
+	  	$('#board').empty();
+		shuffle(JSONBingo2017.squares);
+		$('#header').html(headerText2017);
+		for (i=0; i<25; i++)	{
+			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2017.squares[i].square+"</div></div>");
+		}
+		$('#bingo2017').hide();
+		$('#bingo2016').show();
+		$('#header').removeClass("win");
+		$('body').removeClass("winBg");
+		wireEvents();
+  })
+
+  $('#bingo2016').tap( function() {
+	  $('#board').empty();
+		shuffle(JSONBingo2016.squares);
+		$('#header').html(headerText2016);
+		for (i=0; i<25; i++)	{
+			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2016.squares[i].square+"</div></div>");
+		}
+		$('#bingo2016').hide();
+		$('#bingo2017').show();
+		$('#header').removeClass("win");
+		$('body').removeClass("winBg");
+		wireEvents();
+  })
+		 
+
+        
+});
+
+wireEvents = function() {
+	$('div.square').tap( function() {
+		$(this).toggleClass('selected');
       if ($(this).data('value') == 1) {
             //alert(event.target.id);
       		$(this).data('value', 0); }
@@ -57,9 +94,8 @@ $(document).ready(function() {
 			$('#header').removeClass("win");
 			$('body').removeClass("winBg");
 		}; 
-    });
-        
-});
+	  });
+}
 
 
 shuffle = function(v){
@@ -101,3 +137,9 @@ shuffle = function(v){
 		} );
 	}
 })( this );
+
+function updateSite(event) {
+    window.applicationCache.swapCache();
+}
+window.applicationCache.addEventListener('updateready',
+    updateSite, false);

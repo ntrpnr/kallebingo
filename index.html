@@ -3,38 +3,44 @@
 <html>
 
 <head>
-	
-	<title>Bingo</title>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1299897-3"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-1299897-3');
+	</script>
+
+	<title>Kalle Anka-Bingo</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="user-scalable=no, width=device-width">
+	 <meta name="viewport" content="user-scalable=yes, width=device-width"> 
 
-	
-
-
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	
-	<!-- <script src="js/jquery.tappable.js" type="text/javascript"></script> -->
 
-	<script src="js/data.js" type="text/javascript"></script>
-	
-	<script src="js/script.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
 
-	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script src="js/data.js?3" type="text/javascript"></script>
+	
+	<script src="js/script.js?2" type="text/javascript"></script>
+
+	<link href="css/style.css?3" rel="stylesheet" type="text/css">
 	
 </head>
 
 <body>
 
 	<div id="container">
-	
-		<div id="header"></div>
-		
+		<div>
+			<div id="header"></div>
+			<button class="editionButton" id="bingo2017">Byt till 2017 års bricka</button>
+			<button class="editionButton" id="bingo2016">Byt till 2016 års bricka</button>
+		</div>
 		<div id="board"></div>
 	
 		<div id="footer"></div>
-
+		
 	</div>
 	
 </body>

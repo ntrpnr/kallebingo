@@ -13,7 +13,7 @@
 body {
 	background-color: #a1a1a1;
 	background-image: url('../img/christmas-dark.png');
-	font-family: "BodoniSvtyTwoOSITCTT-Bold", "Georgia", serif;
+	font-family: "Trebuchet MS", sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 #container {
-	width: 640px;
+	width: 700px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -30,16 +30,15 @@ body {
 }	
 
 #header, #footer {
-	display: block;
+	
 	float: left;
-	width: 600px;
-	color: #bf0707;
+	color: #e05332;
 	opacity: 1;
-	text-shadow: 1px 2px 1px #e1e1e1, 0px -1px 0px #313131;
+	text-shadow: 1px 1px 1px #fafafa, 0px -1px 0px #313131;
    	background-color: none;
-	font-size: 2.8em;
+	font-size: 2.0em;
 	font-weight: bold;
-	padding: 8px 20px 8px 20px;
+	padding: 8px 5px 8px 20px;
 	transition-property: background-color;
 	transition-duration: 1s;
 	-moz-transition-property: background-color;
@@ -48,7 +47,13 @@ body {
 	-webkit-transition-duration: 1s;
 }
 
+#header {
+	width: 500px;
+}
+
 #footer {
+
+	width: 600px;
 	text-align: left;
 	font-size: 0.7em;
 	padding: 3px 20px;
@@ -57,9 +62,31 @@ body {
 	text-shadow: none;
 }
 
+
+
+.editionButton{
+	margin: 10px;
+border:1px solid #df0909; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
+ background-color: #e05332; background-image: -webkit-gradient(linear, left top, left bottom, from(#e05332), to(#ae4128));
+ background-image: -webkit-linear-gradient(top, #e05332, #ae4128);
+ background-image: -moz-linear-gradient(top, #e05332, #ae4128);
+ background-image: -ms-linear-gradient(top, #e05332, #ae4128);
+ background-image: -o-linear-gradient(top, #e05332, #ae4128);
+ background-image: linear-gradient(to bottom, #e05332, #ae4128);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f62b2b, endColorstr=#d20202);
+}
+
+.editionButton:hover{
+ border:1px solid #b30808;
+ background-color: #e40a0a; background-image: -webkit-gradient(linear, left top, left bottom, from(#e40a0a), to(#9f0202));
+ background-image: -webkit-linear-gradient(top, #e40a0a, #9f0202);
+ background-image: -moz-linear-gradient(top, #e40a0a, #9f0202);
+ background-image: -ms-linear-gradient(top, #e40a0a, #9f0202);
+ background-image: -o-linear-gradient(top, #e40a0a, #9f0202);
+ background-image: linear-gradient(to bottom, #e40a0a, #9f0202);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#e40a0a, endColorstr=#9f0202);
+}
 #footer a {
 	text-decoration: none;
-	color: #d05f5f;
+	color: #e05332;
 }
 
 #board {
@@ -67,7 +94,8 @@ body {
 	float: left;
 	width: 690px;
 	margin-bottom: 10px;
-	box-shadow: 0px 3px #919191;
+	border: 1px solid #e05332;
+	box-shadow: 2px 5px rgba(0, 0, 0, 0.4);
 	background: rgba(255, 255, 255, 0.7);
 }
 
@@ -78,6 +106,7 @@ body {
 	background: rgba(255, 255, 255, 0.5);
 	color: #313131;
 	text-align: center;
+	font-weight: bold;
 	width: 120px;
 	height: 120px;
 	padding: 8px;
@@ -96,11 +125,19 @@ body {
 }
 
 .text {
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: "Tahoma", Arial, sans-serif;
 	vertical-align: middle;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	line-height: 1.2em;
 
+}
+
+smaller {
+	font-size: 0.6em;
+}
+
+smaller {
+	font-size: 0.6em;
 }
 
 .small {
@@ -119,27 +156,38 @@ body {
 	color: #ffffff !important;
 }
 
-@media only screen 
+p {
+	margin-top:10px;
+	font-size: 1.6em;
+}
+
+ @media only screen 
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
 
 	#container {
-		width: 1000px;
-		margin: 10px 10px 0px 10px;
+		width: 750px;
+		margin: 10px 50px 10px 10px;
+		min-height: 1500px;
 	}
 
 	#header {
 		font-size: 2.0em;
-		padding: 20px 20px 12px 20px;
+		padding: 20px 5px 12px 20px;
 	}
 	
 	#footer {	
 		padding: 16px 20px 8px 20px;
-		font-size: 0.7em;
+		font-size: 0.5em;
 	}
 
 	.text {
-		font-size: 0.9em;
+		font-size: 0.8em;
 		line-height: 1.2em;
 	}
-}
+
+	p {
+		margin-top:10px;
+		font-size: 2.6em;
+	}
+} 
