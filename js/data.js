@@ -1,6 +1,7 @@
 
 var headerText2016 = "Kalle Anka-Bingo <smaller> - 2016 års bricka</smaller>";
 var headerText2017 = "Kalle Anka-Bingo <smaller> - 2017 års bricka</smaller>";
+var headerText2018 = "Kalle Anka-Bingo <smaller> - 2018 års bricka</smaller>";
 
 var footerText = "<a href='https://www.reddit.com/user/Lopsical'>Bingobricka av /u/Lopsical</a> | <a href='https://www.reddit.com/user/entrep'>Skapad och hostad av /u/entrep</a> | <a href='https://github.com/jeffehobbs/HTML5-bingo/' target='_blank'>Based on HTML5-bingo</a><br /><p>Denna bingobricka är baserad på en livstid av research</p>";
 
@@ -66,6 +67,35 @@ var JSONBingo2017 = {"squares": [
         {"square": "De vuxna bryr sig mer om vad som händer på TVn än vad barnen gör."},
         {"square": "Någon liknar tjuren Ferdinands ömma moder vid en person i rummet."}
     ]
+};
+
+var JSONBingo2018 = {"squares": [
+    {"square": "Någon påminner om att vi ej ännu har en statsminister."},
+    {"square": "&#34;Det är Robin Hood jag vill ha!&#34;"},
+    {"square": "Någon drar en parallell mellan Askungens slaveri och sin egna vardag."},
+    {"square": "&#34;Hoho, sån där målarfarg skulle man ha.&#34;"},
+    {"square": "Disney har klippt bort något. Detta gör någon väldigt upprörd."},
+    {"square": "&#34;Ara-papa-papa-papa-papa-papa-pap-i-a!&#34;"},
+    {"square": "Någon sjunger med."},
+    {"square": "En yngre släkting rusar till köket för att spotta efter att ha fått i sig något äckligt vuxengodis."},
+    {"square": "Någon är provocerad av Delicatos försök att ersätta den traditionella Aladdin-asken."},
+    {"square": "Hyuck, det är ju jag som kör!"},
+    {"square": "&#34;Här kommer din favoritdel, [namn på familjemedlem]!&#34;"},
+    {"square": "Helt plötsligt diskuterar släkten Donald Trump. Hur eller varför detta hände vet du ej."},
+    {"square": "Någon vill ta en bild på släkten för Instagram eller Facebook."},
+    {"square": "&#34;Nåja, vad är väl en bal på slottet&#34;"},
+    {"square": "Någon klagar på felaktig mängd snö/vind/regn/ljus utanför fönstret."},
+    {"square": "Gratisruta: Kalle Anka visar tecken på svår psykisk ohälsa."},
+    {"square": "Någon liknar tjuren Ferdinands ömma moder vid en person i rummet."},
+    {"square": "Förutom ljuden från TV:n blir rummet helt tyst efter någons aggressiva hostattack."},
+    {"square": "Någon kommenterar på ungdomar som tittar på sin mobil istället for TV:n."},
+    {"square": "Efter Kalle Anka säger någon &#34;Jahapp. Samma tid nästa år då?&#34;"},
+    {"square": "Teaser för Toy Story 4 visas. Släkten tycker att nu får det vara nog."},
+    {"square": "En yngre släkting suckar eller himlar med ögonen åt de vuxnas trams."},
+    {"square": "Det är iallafall live, till skillnad från förra året."},
+    {"square": "&#34;Jag ska giva dig på moppo!&#34;"},
+    {"square": "Sista pralinen på Aladdinaskens första lager ligger orörd i mer än 5 minuter."},
+]
 };
 
 

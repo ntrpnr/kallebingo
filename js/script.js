@@ -1,14 +1,15 @@
 
 $(document).ready(function() {
 	
+	$('#bingo2018').hide();
 	$('#bingo2016').hide();
 	$('body').on('touchmove', true);
 	
-	$('#header').append(headerText2016);
+	$('#header').append(headerText2018);
 	
 	$('#footer').append(footerText);
 
-	shuffle(JSONBingo2016.squares);
+	shuffle(JSONBingo2018.squares);
 	
 	for (i=0; i<25; i++)	{
 	
@@ -16,11 +17,25 @@ $(document).ready(function() {
 		// 	$('#board').append("<div data-value='1' class='selected freesquare' id='sqfree'><div class='text'><br/>free space</div></div>");
 		// 	$('#board').append("<div data-value='0' class='square' id='sq12'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
 		// } else {
-			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2016.squares[i].square+"</div></div>");
+			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
 		
   }
 
   wireEvents();
+
+  $('#bingo2018').tap( function() {
+	$('#board').empty();
+  shuffle(JSONBingo2018.squares);
+  $('#header').html(headerText2018);
+  for (i=0; i<25; i++)	{
+	  $('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
+  }
+  $('#bingo2018').hide();
+  $('#bingo2017').show();
+  $('#header').removeClass("win");
+  $('body').removeClass("winBg");
+  wireEvents();
+})
 
 
   $('#bingo2017').tap( function() {
@@ -45,7 +60,7 @@ $(document).ready(function() {
 			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2016.squares[i].square+"</div></div>");
 		}
 		$('#bingo2016').hide();
-		$('#bingo2017').show();
+		$('#bingo2018').show();
 		$('#header').removeClass("win");
 		$('body').removeClass("winBg");
 		wireEvents();
