@@ -118,6 +118,79 @@ shuffle = function(v){
     	return v;
 };
 
+
+
+/* Returns array of size 25 with objects containing index and if the square is enabled
+	[
+		{
+			index: 14,
+			enabled: true
+		}
+	]
+*/
+function translateQuery(id){
+	const urlParams = new URLSearchParams(window.location.search);
+	const id = urlParams.get('id');
+
+	var bingoArray = []
+
+	//Must be of size 25 
+	if(id.length != 25){
+		firstStart();
+		return;
+	}
+
+	for(var i = 0; i < 25; i++){
+		var charAtPos = id[i];
+		var charValue = convertFromBase64(charAtPos);
+
+		//If one char is not of base 64
+		if(charValue == -1){
+			firstStart();
+			return;
+		}
+
+		var enabled = (charValue & 0x1) == 0x1;
+		var arrIndex = (charValue >> 1);
+
+		let bingoObject = {
+			index: arrIndex,
+			enabled: enabled
+		};
+
+		bingoArray.push(bingoObject);
+	}
+
+	return bingoArray;
+}
+
+function firstStart(){
+	console.log("First start");
+
+	var copyArray = JSONBingo2018.squares;
+
+	var shuffledIndexes = "";
+
+	while(copyArray.length != shuffledIndexes.length){
+		var randIndex = Math.floor(Math.random() * copyArray.length);
+		var randSquare = copyArray[randIndex];
+		if(randSquare != -1){
+			copyArray[randIndex] = -1;
+			let idNumber = randIndex << 1; //Set to disabled
+		}
+	}
+
+}
+
+let base64String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"
+function convertFromBase64(char){
+	return base64String.indexOf(char)
+}
+
+function convertToBase64(number){
+	return base64String[number];
+}
+
 /*! Normalized address bar hiding for iOS & Android (c) @scottjehl MIT License */
 (function( win ){
 	var doc = win.document;

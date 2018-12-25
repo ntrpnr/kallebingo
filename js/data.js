@@ -99,3 +99,15 @@ var JSONBingo2018 = {"squares": [
 };
 
 
+
+/*
+
+25 olika rutor samt 1 bit som beskriver om en ruta är på eller av = 26 bitar * 25 rutor = 650 bitar = 
+
+
+
+
+window.history.replaceState(null, null, "/?id=21");
+*/
+
+
