@@ -9,19 +9,21 @@ $(document).ready(function() {
 	
 	$('#footer').append(footerText);
 
-	shuffle(JSONBingo2018.squares);
-	
-	for (i=0; i<25; i++)	{
-	
-		// if (i==12) {
-		// 	$('#board').append("<div data-value='1' class='selected freesquare' id='sqfree'><div class='text'><br/>free space</div></div>");
-		// 	$('#board').append("<div data-value='0' class='square' id='sq12'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
-		// } else {
-			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
-		
-  }
+	checkQuery();
 
-  wireEvents();
+// 	shuffle(JSONBingo2018.squares);
+	
+// 	for (i=0; i<25; i++)	{
+	
+// 		// if (i==12) {
+// 		// 	$('#board').append("<div data-value='1' class='selected freesquare' id='sqfree'><div class='text'><br/>free space</div></div>");
+// 		// 	$('#board').append("<div data-value='0' class='square' id='sq12'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
+// 		// } else {
+// 			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
+		
+//   }
+
+//   wireEvents();
 
   $('#bingo2018').tap( function() {
 	$('#board').empty();
@@ -70,17 +72,20 @@ $(document).ready(function() {
         
 });
 
-wireEvents = function() {
+wireEvents = function(squareArray) {
 	$('div.square').tap( function() {
 		$(this).toggleClass('selected');
-      if ($(this).data('value') == 1) {
-            //alert(event.target.id);
-      		$(this).data('value', 0); }
-      else {
-            //alert(event.target.id);
-      		$(this).data('value', 1); }
-      		
-         clickSnd.play();
+
+		let dataVal = $(this).data('value') == 1 ? 0 : 1;
+		$(this).data('value', dataVal); 
+		
+		var index = $("#board").children().index(this);
+		squareArray[index].enabled = dataVal == 1
+
+		let id = convertArray(squareArray);
+		window.history.replaceState(null, null, "?id=" + id);
+
+        clickSnd.play();
 
 		var row1 = ($('#sq0').data('value')+$('#sq1').data('value')+$('#sq2').data('value')+$('#sq3').data('value')+$('#sq4').data('value'));
 		var row2 = ($('#sq5').data('value')+$('#sq6').data('value')+$('#sq7').data('value')+$('#sq8').data('value')+$('#sq9').data('value'));
@@ -113,12 +118,53 @@ wireEvents = function() {
 }
 
 
+
 shuffle = function(v){
     	for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
     	return v;
 };
 
+function checkQuery(){
+	const urlParams = new URLSearchParams(window.location.search);
+	const id = urlParams.get('id');
 
+	//Must be there and of size 25 
+	if(id == null || id.length != 25){
+		firstStart(); //Will reload page again
+		return;
+	}
+	//Else
+	var squareArray = translateQuery(id);
+
+	createGrid(squareArray);
+}
+
+function createGrid(squareArray){
+
+	console.log(squareArray)
+
+	for (i = 0; i < squareArray.length; i++){
+		let index = squareArray[i].index;
+		let enabled = squareArray[i].enabled;
+
+		let square = JSONBingo2018.squares[index].square;
+
+		$('#board').append("<div data-value='0' class='square' id='sq" + i + "'><div class='text'><br/>" + square + "</div></div>");
+		var squareDOM = $("#sq" + i);
+
+		if(enabled){
+			squareDOM.toggleClass('selected');
+			if (squareDOM.data('value') == 1) {
+				squareDOM.data('value', 0); 
+			}
+			else {
+				squareDOM.data('value', 1); 
+			}
+		}
+	}
+
+	wireEvents(squareArray);
+}
 
 /* Returns array of size 25 with objects containing index and if the square is enabled
 	[
@@ -129,16 +175,7 @@ shuffle = function(v){
 	]
 */
 function translateQuery(id){
-	const urlParams = new URLSearchParams(window.location.search);
-	const id = urlParams.get('id');
-
 	var bingoArray = []
-
-	//Must be of size 25 
-	if(id.length != 25){
-		firstStart();
-		return;
-	}
 
 	for(var i = 0; i < 25; i++){
 		var charAtPos = id[i];
@@ -169,17 +206,20 @@ function firstStart(){
 
 	var copyArray = JSONBingo2018.squares;
 
-	var shuffledIndexes = "";
+	var id = "";
 
-	while(copyArray.length != shuffledIndexes.length){
+	while(copyArray.length != id.length){
 		var randIndex = Math.floor(Math.random() * copyArray.length);
 		var randSquare = copyArray[randIndex];
 		if(randSquare != -1){
 			copyArray[randIndex] = -1;
 			let idNumber = randIndex << 1; //Set to disabled
+			let base64Char = convertToBase64(idNumber);
+			id += base64Char;
 		}
 	}
 
+	window.location = "?id=" + id;
 }
 
 let base64String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"
@@ -189,6 +229,22 @@ function convertFromBase64(char){
 
 function convertToBase64(number){
 	return base64String[number];
+}
+
+function convertArray(squareArray){
+	var id = "";
+
+	for(var i = 0; i < squareArray.length; i++){
+		let square = squareArray[i];
+		var index = square.index;
+		var enabled = square.enabled ? 1 : 0;
+
+		let base64char = convertToBase64((index << 1) | enabled);
+		id += base64char;
+		console.log(id + "-- ");
+	}
+
+	return id;
 }
 
 /*! Normalized address bar hiding for iOS & Android (c) @scottjehl MIT License */
