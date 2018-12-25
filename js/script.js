@@ -1,12 +1,7 @@
 
 $(document).ready(function() {
-	
-	$('#bingo2018').hide();
-	$('#bingo2016').hide();
 	$('body').on('touchmove', true);
-	
-	$('#header').append(headerText2018);
-	
+
 	$('#footer').append(footerText);
 
 	checkQuery();
@@ -25,51 +20,36 @@ $(document).ready(function() {
 
 //   wireEvents();
 
-  $('#bingo2018').tap( function() {
-	$('#board').empty();
-  shuffle(JSONBingo2018.squares);
-  $('#header').html(headerText2018);
-  for (i=0; i<25; i++)	{
-	  $('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
-  }
-  $('#bingo2018').hide();
-  $('#bingo2017').show();
-  $('#header').removeClass("win");
-  $('body').removeClass("winBg");
-  wireEvents();
-})
-
-
-  $('#bingo2017').tap( function() {
-	  	$('#board').empty();
-		shuffle(JSONBingo2017.squares);
-		$('#header').html(headerText2017);
-		for (i=0; i<25; i++)	{
-			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2017.squares[i].square+"</div></div>");
-		}
-		$('#bingo2017').hide();
-		$('#bingo2016').show();
+	$('#bingo2018').tap( function() {
+		$('#board').empty();
+		window.history.replaceState(null, null, "?year=2018");	
+		
+		checkQuery();
+		
 		$('#header').removeClass("win");
 		$('body').removeClass("winBg");
-		wireEvents();
-  })
+	})
 
-  $('#bingo2016').tap( function() {
-	  $('#board').empty();
-		shuffle(JSONBingo2016.squares);
-		$('#header').html(headerText2016);
-		for (i=0; i<25; i++)	{
-			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2016.squares[i].square+"</div></div>");
-		}
-		$('#bingo2016').hide();
-		$('#bingo2018').show();
+
+	$('#bingo2017').tap( function() {
+		$('#board').empty();
+		window.history.replaceState(null, null, "?year=2017");	
+		
+		checkQuery();
+
 		$('#header').removeClass("win");
 		$('body').removeClass("winBg");
-		wireEvents();
-  })
-		 
+	})
 
-        
+	$('#bingo2016').tap( function() {
+		$('#board').empty();
+		window.history.replaceState(null, null, "?year=2016");	
+
+		checkQuery();
+		
+		$('#header').removeClass("win");
+		$('body').removeClass("winBg");
+	})        
 });
 
 wireEvents = function(squareArray) {
@@ -78,12 +58,12 @@ wireEvents = function(squareArray) {
 
 		let dataVal = $(this).data('value') == 1 ? 0 : 1;
 		$(this).data('value', dataVal); 
-		
+
 		var index = $("#board").children().index(this);
 		squareArray[index].enabled = dataVal == 1
 
 		let id = convertArray(squareArray);
-		window.history.replaceState(null, null, "?id=" + id);
+		window.history.replaceState(null, null, "?id=" + id);	
 
         clickSnd.play();
 
@@ -117,8 +97,6 @@ wireEvents = function(squareArray) {
 	  });
 }
 
-
-
 shuffle = function(v){
     	for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
     	return v;
@@ -128,26 +106,33 @@ function checkQuery(){
 	const urlParams = new URLSearchParams(window.location.search);
 	const id = urlParams.get('id');
 
+	let year = urlParams.get("year");
+
+	if(year == null)
+		year = "2018"
+
 	//Must be there and of size 25 
 	if(id == null || id.length != 25){
-		firstStart(); //Will reload page again
+		firstStart(year); //Will reload page again
 		return;
 	}
 	//Else
 	var squareArray = translateQuery(id);
 
-	createGrid(squareArray);
+	performYearConfigs(year);
+
+	createGrid(squareArray, year);
 }
 
-function createGrid(squareArray){
+function createGrid(squareArray, year){
 
-	console.log(squareArray)
+	let JSONBingoArray = getBingoJSON(year);
 
 	for (i = 0; i < squareArray.length; i++){
 		let index = squareArray[i].index;
 		let enabled = squareArray[i].enabled;
 
-		let square = JSONBingo2018.squares[index].square;
+		let square = JSONBingoArray[index].square;
 
 		$('#board').append("<div data-value='0' class='square' id='sq" + i + "'><div class='text'><br/>" + square + "</div></div>");
 		var squareDOM = $("#sq" + i);
@@ -175,7 +160,7 @@ function createGrid(squareArray){
 	]
 */
 function translateQuery(id){
-	var bingoArray = []
+	var bingoArray = [];
 
 	for(var i = 0; i < 25; i++){
 		var charAtPos = id[i];
@@ -201,10 +186,10 @@ function translateQuery(id){
 	return bingoArray;
 }
 
-function firstStart(){
+function firstStart(year){
 	console.log("First start");
 
-	var copyArray = JSONBingo2018.squares;
+	var copyArray = getBingoJSON(year);
 
 	var id = "";
 
@@ -219,12 +204,28 @@ function firstStart(){
 		}
 	}
 
-	window.location = "?id=" + id;
+	window.location = "?id=" + id + "&year=" + year;
+}
+
+function getBingoJSON(year){
+	switch (year) {
+		case "2018":
+			return JSONBingo2018.squares;
+		
+		case "2017":
+			return JSONBingo2017.squares;
+
+		case "2016":
+			return JSONBingo2016.squares;
+
+		default:
+			return JSONBingo2018.squares;
+	}
 }
 
 let base64String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"
 function convertFromBase64(char){
-	return base64String.indexOf(char)
+	return base64String.indexOf(char);
 }
 
 function convertToBase64(number){
@@ -241,10 +242,37 @@ function convertArray(squareArray){
 
 		let base64char = convertToBase64((index << 1) | enabled);
 		id += base64char;
-		console.log(id + "-- ");
 	}
 
 	return id;
+}
+
+function performYearConfigs(year){
+	switch (year) {
+		case "2018":
+			$('#bingo2018').hide();
+			$('#bingo2017').show();
+			$('#bingo2016').hide();		
+			$('#header').append(headerText2018);
+			break;
+		
+		case "2017":
+			$('#bingo2018').hide();
+			$('#bingo2017').hide();
+			$('#bingo2016').show();		
+			$('#header').append(headerText2017);
+			break;
+
+		case "2016":
+			$('#bingo2018').show();
+			$('#bingo2017').hide();
+			$('#bingo2016').hide();		
+			$('#header').append(headerText2016);
+			break;
+
+		default:
+			performYearConfigs(";2018")
+	}
 }
 
 /*! Normalized address bar hiding for iOS & Android (c) @scottjehl MIT License */
