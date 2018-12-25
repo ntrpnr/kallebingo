@@ -1,3 +1,16 @@
+/*
+	To add a new year, do the following;
+	-	Add a JSON array in data.js with this year's content (must be 25 objects big)
+	-	Copy and paste one of the $("#bingoXXXX").tap... functions and rename it to be the correct year. 
+		Don't forget the window.history... row
+	-	In checkQuery(), change default year
+	- 	In getBingoJSON, add a similar case for the new year and refer it to the array you created in data.js
+	-	In performYearConfigs(), add another case for the year and set $('#bingoXXXX') to hide except for the last year.
+		Also add the current year $('#bingo2018') to the old cases and hide it except for 2016 where you should show it
+		Don't forget to set default year here as well.
+	
+	Done.
+*/
 
 $(document).ready(function() {
 	$('body').on('touchmove', true);
@@ -5,20 +18,6 @@ $(document).ready(function() {
 	$('#footer').append(footerText);
 
 	checkQuery();
-
-// 	shuffle(JSONBingo2018.squares);
-	
-// 	for (i=0; i<25; i++)	{
-	
-// 		// if (i==12) {
-// 		// 	$('#board').append("<div data-value='1' class='selected freesquare' id='sqfree'><div class='text'><br/>free space</div></div>");
-// 		// 	$('#board').append("<div data-value='0' class='square' id='sq12'><div class='text'><br/>"+JSONBingo.squares[i].square+"</div></div>");
-// 		// } else {
-// 			$('#board').append("<div data-value='0' class='square' id='sq"+i+"'><div class='text'><br/>"+JSONBingo2018.squares[i].square+"</div></div>");
-		
-//   }
-
-//   wireEvents();
 
 	$('#bingo2018').tap( function() {
 		$('#board').empty();
@@ -108,6 +107,7 @@ function checkQuery(){
 
 	let year = urlParams.get("year");
 
+	//Default year. Recommended to be latest year
 	if(year == null)
 		year = "2018"
 
@@ -271,7 +271,7 @@ function performYearConfigs(year){
 			break;
 
 		default:
-			performYearConfigs(";2018")
+			performYearConfigs("2018");
 	}
 }
 
