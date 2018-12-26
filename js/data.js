@@ -97,5 +97,3 @@ var JSONBingo2018 = {"squares": [
     {"square": "Sista pralinen på Aladdinaskens första lager ligger orörd i mer än 5 minuter."},
 ]
 };
-
-
