@@ -97,17 +97,3 @@ var JSONBingo2018 = {"squares": [
     {"square": "Sista pralinen på Aladdinaskens första lager ligger orörd i mer än 5 minuter."},
 ]
 };
-
-
-
-/*
-
-25 olika rutor samt 1 bit som beskriver om en ruta är på eller av = 26 bitar * 25 rutor = 650 bitar = 
-
-
-
-
-window.history.replaceState(null, null, "/?id=21");
-*/
-
-
